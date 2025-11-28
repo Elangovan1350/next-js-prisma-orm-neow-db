@@ -3,12 +3,15 @@ import { prisma } from "@/lib/prismaconnect";
 export async function GET() {
   const user = await prisma.user.findMany();
 
-  return new Response(JSON.stringify(user), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return Response.json(
+    { data: user, message: "Users retrieved successfully" },
+    {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 }
 
 export async function POST(request: Request) {
@@ -24,12 +27,15 @@ export async function POST(request: Request) {
       },
     });
 
-    return new Response(JSON.stringify(newUser), {
-      status: 201,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    return Response.json(
+      { data: newUser, message: "User created successfully" },
+      {
+        status: 201,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   } catch (error) {
     // Check if user already exists
     const exetingUser = await prisma.user.findUnique({
@@ -38,9 +44,9 @@ export async function POST(request: Request) {
       },
     });
     if (exetingUser) {
-      return new Response("User already exists", { status: 409 });
+      return Response.json({ message: "User already exists" }, { status: 409 });
     }
     console.error("Error creating user:", error);
-    return new Response("Error creating user", { status: 500 });
+    return Response.json({ message: "Error creating user" }, { status: 500 });
   }
 }
