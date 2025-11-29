@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       },
     });
     if (exetingUser) {
-      return Response.json({ message: "User already exists" }, { status: 409 });
+      return Response.json({ message: "User already exists" }, { status: 200 });
     }
     console.error("Error creating user:", error);
     return Response.json({ message: "Error creating user" }, { status: 500 });
