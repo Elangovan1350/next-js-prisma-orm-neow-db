@@ -16,7 +16,7 @@ export default function SignPage() {
 
     try {
       // Replace with your actual sign-in logic
-      const response = await fetch("/api/users", {
+      const response = await fetch(`/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
