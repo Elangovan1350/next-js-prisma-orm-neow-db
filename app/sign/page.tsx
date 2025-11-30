@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 export default function SignPage() {
   const [email, setEmail] = useState("");
@@ -16,20 +17,12 @@ export default function SignPage() {
 
     try {
       // Replace with your actual sign-in logic
-      const response = await fetch(`/api/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, name: password }),
+      const response = await axios.post("/api/users", {
+        email,
+        name: password,
       });
 
-      if (!response.ok) {
-        throw new Error("Sign in failed");
-      }
-
-      // Handle successful sign in here (e.g., redirect, set token, etc.)
-      console.log("Sign in successful");
+      console.log("Sign-in successful:", response.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {

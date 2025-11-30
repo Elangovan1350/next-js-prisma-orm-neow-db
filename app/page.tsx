@@ -1,6 +1,8 @@
+import axios from "axios";
+
 export default async function Home() {
-  const response = await fetch(`${process.env.URL}/api/users`);
-  const data = await response.json();
+  const response = await axios.get(`${process.env.URL}/api/users`);
+  const data = response.data;
   console.log("Fetched users:", data);
   return (
     <div>
