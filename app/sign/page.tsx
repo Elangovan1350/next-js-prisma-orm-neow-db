@@ -17,12 +17,12 @@ export default function SignPage() {
 
     try {
       // Replace with your actual sign-in logic
-      const response = await axios.post("/api/users", {
+      await axios.post("/api/users", {
         email,
         name: password,
       });
 
-      console.log("Sign-in successful:", response.data);
+      // console.log("Sign-in successful:", response.data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
